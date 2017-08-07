@@ -1,0 +1,92 @@
+The logging.properties file
+
+This document leads you through setup of the jdk logger. This document
+is part of a sample project that you can use to understand
+all the elements of working with the logger.
+
+These are the topics:
+1. About the configuration file logging.properties
+2. Setting up a log output directory
+3. Setting up a formatter (if you want to change the output appearance of logs)
+4. Modifying logging.properties
+5. Informing the JVM about the location of logging.properties, 
+log output files, and your custom formatter.
+
+1. About logging.properties
+
+Java provides a default configuration of its logger in
+a file logging.properties. This file is placed by default 
+in the /jre/lib folder in any jdk distribution. 
+This file allows you to set up separate loggers for console display 
+and logs stored in files; allows you to set independent levels; 
+and allows you to specify details about how logs 
+should be formatted and named, and where they should be stored. 
+
+In this project, logging.properties has been placed in the
+resources folder---this is a typical best practice for storing 
+logging.properties in a real project.
+
+The version of logging.properties that you have here
+has been modified in various ways -- your professor can explain
+to you the details. Note that a ConsoleHandler and a FileHandler
+have been configured. 
+
+2. Set up the log output directory
+
+You may specify the log output directory in logging.properties, but
+before using it, you must create this location manually in the 
+file system.
+
+In this project, for convenience, 
+we have created a folder logs that will contain log outputs,
+but the log folder does not need to be placed inside a project (and usually
+should not be placed there).
+
+3. Setting up a Formatter
+
+There are two types of outputs for log messages: console output and
+file output. The default formatting for file outputs is a kind of
+XML format. This can be used by a log analyzer and is probably the
+best choice.
+
+The default formatter for console output gives a lot of information --
+a time and date stamp, information about the origin of the message,
+the level, in addition to the message itself. Each message requires
+two lines of display.
+
+I have created a custom formatter to make the console messages much
+briefer. This formatter is called VerySimpleFormatter, located in the
+util package.
+
+4. Modifying logging.properties
+
+A. FileHandler: You must specify the full pathname of the location of the directory
+you intend to use for logs, and also give the log files a name; you specify
+this full pathname,
+using the separator '/', as the value for java.util.logging.FileHandler.pattern.
+We have used the pattern
+   log%g.txt
+to specify the log file name.
+The %g token lets you tell the JVM you are expecting multiple log files. The
+value you provide for java.util.logging.FileHandler.count 
+tells it how many (rotating) log files you wish to have.
+If you want 2, then log%g.txt tells it to first create the file log0.txt and
+fill it up, then move on to log1.txt, fill it up, then return to log0.txt, and so on.
+
+B. Specifying a Formatter: If you want to specify a different format for logs,
+you must provide a Java class that does the formatting, and you must specify
+in logging.properties where the class is located. Here, we are using
+VerySimpleFormatter.java, located in util. This location has been specified
+as the value of java.util.logging.ConsoleHandler.formatter, as part of
+the ConsoleHandler configuration.
+
+5. Telling the JVM where you have put logging.properties 
+ 
+a.	Create a Run Configuration for your project: In Eclipse, highlight 
+the Main class in mainpackage, right-click, Run As > Run Configurations.
+b.	Specify the Project (Logging) and the name of the class (mainpackage.Main),
+and give the Run Configuration a name -- we call it MainWithLogger. 
+c.	In the Arguments tab, type into the VM Arguments area something like the following line: 
+(forward slashes should be used – no spaces -- adapt to your own environment)
+-Djava.util.logging.config.file=D:/courses/FPP/FPP-2015-Standard/workspace/Logging/src/resources/logging.properties
+	

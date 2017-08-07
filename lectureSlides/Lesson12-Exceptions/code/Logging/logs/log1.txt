@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-03-14T09:17:18</date>
+  <millis>1457965038629</millis>
+  <sequence>0</sequence>
+  <logger>mainpackage</logger>
+  <level>INFO</level>
+  <class>mainpackage.Main</class>
+  <method>testingTheLogger</method>
+  <thread>1</thread>
+  <message>This message will appear both in the log file and on the console -- console message should have simple formatting.</message>
+</record>
+</log>
